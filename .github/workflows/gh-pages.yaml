@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   build-deploy:
     runs-on: ubuntu-20.04
@@ -20,7 +23,9 @@ jobs:
         with:
           hugo-version: "latest"
 
-      - run: hugo --minify
+      - run: |
+          hugo --minify
+          echo -n 'anza-labs.dev' > ./public/CNAME
 
       - uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/main' }}
