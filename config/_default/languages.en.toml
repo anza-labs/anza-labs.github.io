@@ -9,17 +9,17 @@ title = "Anza Labs"
   isoCode = "en"
   rtl = false
   dateFormat = "2 January 2006"
-  # logo = "img/logo.png"
-  # secondaryLogo = "img/secondary-logo.png"
-  # description = "My awesome website"
+  logo = "img/logo.png" # TODO
+  secondaryLogo = "img/secondary-logo.png" # TODO
+  # description = "My awesome website" # TODO
   copyright = "The content of this site is licensed under the [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)"
 
-# [params.author]
+[params.author]
+#  headline = "Automation kingdom"
+#  image = "img/blowfish_logo.png" # TODO
 #   name = "Your name here"
 #   email = "youremail@example.com"
-#   image = "img/blowfish_logo.png"
 #   imageQuality = 96
-#   headline = "I'm only human"
 #   bio = "A little bit about you"
 #   links = [
 #     { email = "mailto:hello@your_domain.com" },
@@ -70,4 +70,3 @@ title = "Anza Labs"
 #     { youtube = "https://youtube.com/username" },
 #     { ko-fi = "https://ko-fi.com/username" },
 #     { codeberg = "https://codeberg.org/username"},
-#   ]
