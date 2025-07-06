@@ -1,6 +1,6 @@
 ---
 title: "Using COSI v1alpha1 with Go apps"
-date: 2025-07-06
+date: 2025-07-13
 summary: |
   An approach to creating a wrapper that simplifies the way to store and retrieve information, all while maintaining flexibility of using different storage providers.
 tags: ["Go", "Kubernetes", "Container Object Storage Interface"]
