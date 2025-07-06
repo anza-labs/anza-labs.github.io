@@ -17,7 +17,8 @@ The **Container Object Storage Interface (COSI)** is a Kubernetes-native standar
 COSI requires a controller and Custom Resource Definitions (CRDs) to extend Kubernetes' API for object storage operations. Install them using the official Helm chart:
 
 ```bash
-kubectl apply -k https://github.com/kubernetes-sigs/container-object-storage-interface//?ref=v0.2.1
+kubectl apply \
+  -k 'https://github.com/kubernetes-sigs/container-object-storage-interface//?ref=v0.2.1'
 ```
 
 This deploys the COSI controller and registers CRDs like `BucketClass`, `BucketClaim`, and `BucketAccess`.
@@ -25,7 +26,9 @@ This deploys the COSI controller and registers CRDs like `BucketClass`, `BucketC
 Alternatively, you can preview the resources before applying them:
 
 ```bash
-kubectl apply -k https://github.com/kubernetes-sigs/container-object-storage-interface//\?ref\=v0.2.1 --dry-run=client -o=yaml 
+kubectl apply \
+  --dry-run=client -o=yaml \
+  -k 'https://github.com/kubernetes-sigs/container-object-storage-interface//?ref=v0.2.1'
 ```
 
 ## Step 2: Install the COSI Driver for Linode
