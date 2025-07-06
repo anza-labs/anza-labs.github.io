@@ -17,11 +17,16 @@ The **Container Object Storage Interface (COSI)** is a Kubernetes-native standar
 COSI requires a controller and Custom Resource Definitions (CRDs) to extend Kubernetes' API for object storage operations. Install them using the official Helm chart:
 
 ```bash
-helm repo add cosi https://kubernetes-sigs.github.io/container-object-storage-interface
-helm install cosi cosi/cosi-controller -n cosi-system --create-namespace
+kubectl apply -k https://github.com/kubernetes-sigs/container-object-storage-interface//?ref=v0.2.1
 ```
 
 This deploys the COSI controller and registers CRDs like `BucketClass`, `BucketClaim`, and `BucketAccess`.
+
+Alternatively, you can preview the resources before applying them:
+
+```bash
+kubectl apply -k https://github.com/kubernetes-sigs/container-object-storage-interface//\?ref\=v0.2.1 --dry-run=client -o=yaml 
+```
 
 ## Step 2: Install the COSI Driver for Linode
 
@@ -33,11 +38,11 @@ Providers implement COSI through drivers. Here, we’ll use the **Linode COSI Dr
        https://linode.github.io/linode-cosi-driver
    ```
 
-2. Install the driver, substituting your Linode API token:
+2. Install the driver, substituting your Linode API token. The token must be configured with the following permissions `Object Storage - Read/Write`. Make sure to replace `<your-linode-api-token>` with your actual token:
    ```bash
    helm install linode-cosi-driver \
        linode-cosi-driver/linode-cosi-driver \
-       --set=apiToken="${LINODE_API_TOKEN}" \
+       --set=apiToken="<your-linode-api-token>" \
        --namespace=linode-cosi-driver \
        --create-namespace
    ```
@@ -90,7 +95,7 @@ Apply these manifests with `kubectl apply -f <file>.yaml`.
 ## Step 4: Deploy a Sample Application
 
 Let’s deploy an app that writes logs to a COSI-managed bucket. The deployment includes:
-- A `logger` init container that generates logs.
+- A `logger` sidecar container that generates logs.
 - An `uploader` container that syncs logs to object storage.
 - A `BucketClaim` to request a bucket.
 - A `BucketAccess` to manage credentials.
@@ -144,7 +149,8 @@ spec:
       - args:
         - --upload-interval=240
         - --file=/mnt/logs/log.txt
-        image: ghcr.io/anza-labs/cosi-sample-app:v0.1.4
+        image: ghcr.io/anza-labs/cosi-sample-app:latest
+        imagePullPolicy: IfNotPresent
         name: uploader
         resources:
           requests:
